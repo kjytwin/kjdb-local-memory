@@ -39,3 +39,4 @@
 - 21개 native/stdio/클라이언트 설정 회귀 검사가 모두 통과했고 SKIP은 없었다. 추출된 ZIP의 런타임·MIT·Python 고지·체크섬과 UTF-8 재시작 보존도 통과했다.
 - 필요 도구가 PATH에 없던 초기 빌드 시도는 성공 근거에서 제외했다. 설치된 CMake 실행 경로로 production/fault DLL을 새로 빌드했고, PowerShell 명령 부재를 즉시 실패 처리하는 규칙을 추가했다.
 - 패키지 메타데이터가 안내하는 PRIVACY·VALIDATION 문서도 ZIP에 포함하도록 수정하고 존재 여부를 검증했다.
+- 최종 버전 이름의 점 때문에 Path.with_suffix가 ZIP 이름을 잘라내는 문제를 발견했다. 이름 전체에 .zip을 붙이도록 수정하고, CI도 점이 포함된 출력 경로로 검증하도록 바꿨다.

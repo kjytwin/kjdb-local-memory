@@ -9,3 +9,4 @@
 - Keep source commits/runtime versions in package metadata. Test the extracted archive, not just the source tree. Record unavailable platform privileges as skips.
 - No credentials, user DBs, private profile copies or private repository history may be committed. Scan staged content and check an explicit file allowlist before publication.
 - Fail fast when a required PowerShell command is unavailable; do not let a stale or undefined LASTEXITCODE turn command-not-found into a successful build. Use installed tool paths without changing execution/security policies.
+- Append .zip to a package directory name; do not replace its suffix because semantic versions contain dots. The CI destination must contain a dotted version and verify the expected full ZIP name.

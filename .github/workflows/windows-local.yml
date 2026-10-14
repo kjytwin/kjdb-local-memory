@@ -32,19 +32,19 @@ jobs:
         shell: pwsh
         run: |
           $kjdbPythonRoot = python -c "import sys; print(sys.prefix)"
-          python -B tools/local/package_windows.py --destination dist/KJDB-Windows-x64-ci-preview --library build-local/ci-native/Release/kjdb_memory.dll --python-root $kjdbPythonRoot
+          python -B tools/local/package_windows.py --destination dist/KJDB-Windows-x64-ci-preview-0.1.1 --library build-local/ci-native/Release/kjdb_memory.dll --python-root $kjdbPythonRoot
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          $env:KJDB_TEST_PACKAGE = Join-Path $PWD 'dist/KJDB-Windows-x64-ci-preview'
+          $env:KJDB_TEST_PACKAGE = Join-Path $PWD 'dist/KJDB-Windows-x64-ci-preview-0.1.1'
           $env:KJDB_TEST_LIBRARY = Join-Path $PWD 'build-local/ci-native/Release/kjdb_memory.dll'
           $env:KJDB_TEST_FAULT_LIBRARY = Join-Path $PWD 'build-local/ci-fault/Release/kjdb_memory.dll'
-          python -B tools/local/run_validation.py dist/KJDB-Windows-x64-ci-preview.zip
+          python -B tools/local/run_validation.py dist/KJDB-Windows-x64-ci-preview-0.1.1.zip
           exit $LASTEXITCODE
       - name: Retain verified candidate and validation evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: KJDB-Windows-x64-ci-preview
+          name: KJDB-Windows-x64-ci-preview-0.1.1
           retention-days: 14
           path: |
-            dist/KJDB-Windows-x64-ci-preview.zip
+            dist/KJDB-Windows-x64-ci-preview-0.1.1.zip
             tools/local/VALIDATION.json
             tools/local/VALIDATION.log

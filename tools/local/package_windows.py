@@ -15,7 +15,7 @@ EXCLUDED = {'site-packages', '__pycache__', 'test', 'tests', 'ensurepip', 'idlel
 
 def package(destination, library, python_root, version='0.1.1-preview'):
     destination = Path(destination).resolve()
-    zip_path = destination.with_suffix('.zip')
+    zip_path = destination.parent / (destination.name + '.zip')
     if destination.exists() or zip_path.exists():
         raise FileExistsError('Use a new package destination; existing packages are preserved')
     python_root = Path(python_root).resolve()
