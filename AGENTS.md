@@ -12,3 +12,5 @@
 - Append .zip to a package directory name; do not replace its suffix because semantic versions contain dots. The CI destination must contain a dotted version and verify the expected full ZIP name.
 - Windows storage tests must respect native file locks: take native backups while open and compare raw log bytes only after closing. Never relax locks for test inspection.
 - Pin an upgrade baseline by release asset SHA256. Missing baseline or missing actual app evidence cannot be counted as a stable-release pass.
+- For candidate promotion, compare the exact set and SHA256 of every runtime/native/tools file in the final ZIP with the app-qualified candidate. Document user-reported app results separately from logs that omit tool payloads.
+- Every user-facing memory test prompt must state the configured project_id; never suggest default unless that is the configured project.
