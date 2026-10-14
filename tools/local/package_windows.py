@@ -25,7 +25,7 @@ def package(destination, library, python_root, version='0.1.1-preview'):
     if not all(p.is_file() for p in required) or not Path(library).is_file():
         raise FileNotFoundError('CPython 3.14 runtime, its license and native memory DLL are required')
     source_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    subprocess.run(['git', 'diff', '--exit-code', 'HEAD', '--', 'LICENSE', 'src', 'include', 'tools/p9', 'tools/local'],
+    subprocess.run(['git', 'diff', '--exit-code', 'HEAD', '--', 'LICENSE', 'README.md', 'docs', 'src', 'include', 'tools/p9', 'tools/local'],
                    cwd=ROOT, check=True, capture_output=True)
     runtime = subprocess.check_output([str(required[0]), '-I', '-B', '-c',
         'import json,sys,struct; print(json.dumps([sys.version.split()[0],struct.calcsize("P")*8]))'], text=True)
