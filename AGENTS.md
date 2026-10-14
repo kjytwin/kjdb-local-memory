@@ -1,0 +1,11 @@
+# Project instructions
+
+- This repository contains the standalone KJDB local text-memory product. Keep token-engine experiments, private archives, host settings and raw personal logs out of it.
+- Use existing code and standard-library tools. Plan changes before implementation; record two self reviews, up to three clearly labeled fictional-manager findings, and fix actual defects.
+- Test through real native storage and isolated bundled Python. Generated settings and direct protocol tests do not establish actual AI-app model calls.
+- Preserve one-server-per-project ownership, existing user settings, corruption refusal and explicit write intent. Never weaken locking or overwrite data to make a test pass.
+- Preserve standard MIT and third-party notices. Public visibility does not imply a stable release.
+- A preview may be published only with explicit scope and remaining limitations. Keep Cowork/embedded Code excluded until separately qualified.
+- Keep source commits/runtime versions in package metadata. Test the extracted archive, not just the source tree. Record unavailable platform privileges as skips.
+- No credentials, user DBs, private profile copies or private repository history may be committed. Scan staged content and check an explicit file allowlist before publication.
+- Fail fast when a required PowerShell command is unavailable; do not let a stale or undefined LASTEXITCODE turn command-not-found into a successful build. Use installed tool paths without changing execution/security policies.
