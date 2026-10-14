@@ -10,3 +10,5 @@
 - No credentials, user DBs, private profile copies or private repository history may be committed. Scan staged content and check an explicit file allowlist before publication.
 - Fail fast when a required PowerShell command is unavailable; do not let a stale or undefined LASTEXITCODE turn command-not-found into a successful build. Use installed tool paths without changing execution/security policies.
 - Append .zip to a package directory name; do not replace its suffix because semantic versions contain dots. The CI destination must contain a dotted version and verify the expected full ZIP name.
+- Windows storage tests must respect native file locks: take native backups while open and compare raw log bytes only after closing. Never relax locks for test inspection.
+- Pin an upgrade baseline by release asset SHA256. Missing baseline or missing actual app evidence cannot be counted as a stable-release pass.

@@ -64,7 +64,7 @@ def package(destination, library, python_root, version='0.1.1-preview'):
         source = ROOT / 'tools/local' / name
         if source.is_file():
             copy(source, Path('guides') / name)
-    for name in ('PRIVACY.md', 'VALIDATION.md'):
+    for name in ('PRIVACY.md', 'VALIDATION.md', 'UPDATE_AND_RECOVERY.md', 'STABLE_RELEASE_PLAN.md'):
         copy(ROOT / 'docs' / name, Path('docs') / name)
     (destination / 'package.json').write_text(json.dumps({
         'name': 'kjdb-local-memory', 'version': version,

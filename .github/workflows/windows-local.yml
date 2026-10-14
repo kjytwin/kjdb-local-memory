@@ -20,6 +20,7 @@ jobs:
       - name: Build production and fault-injection DLLs
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Stop'
           cmake -S tools/local -B build-local/ci-native -A x64
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           cmake --build build-local/ci-native --config Release
@@ -31,12 +32,18 @@ jobs:
       - name: Build allowlisted ZIP and qualify extracted commands
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Stop'
           $kjdbPythonRoot = python -c "import sys; print(sys.prefix)"
           python -B tools/local/package_windows.py --destination dist/KJDB-Windows-x64-ci-preview-0.1.1 --library build-local/ci-native/Release/kjdb_memory.dll --python-root $kjdbPythonRoot
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           $env:KJDB_TEST_PACKAGE = Join-Path $PWD 'dist/KJDB-Windows-x64-ci-preview-0.1.1'
           $env:KJDB_TEST_LIBRARY = Join-Path $PWD 'build-local/ci-native/Release/kjdb_memory.dll'
           $env:KJDB_TEST_FAULT_LIBRARY = Join-Path $PWD 'build-local/ci-fault/Release/kjdb_memory.dll'
+          $kjdbBaseline = Join-Path $PWD 'build-local/baseline-preview.zip'
+          Invoke-WebRequest 'https://github.com/kjytwin/kjdb-local-memory/releases/download/v0.1.1-preview/KJDB-Local-Memory-Windows-x64-v0.1.1-preview.zip' -OutFile $kjdbBaseline
+          if ((Get-FileHash $kjdbBaseline -Algorithm SHA256).Hash.ToLowerInvariant() -ne '6184f1728cf4a7e0911a01df3d475e336bd83632c714772ceba9bc91b7d206af') { throw 'Baseline hash mismatch' }
+          Expand-Archive -LiteralPath $kjdbBaseline -DestinationPath build-local/baseline-preview
+          $env:KJDB_UPGRADE_BASELINE = Join-Path $PWD 'build-local/baseline-preview'
           python -B tools/local/run_validation.py dist/KJDB-Windows-x64-ci-preview-0.1.1.zip
           exit $LASTEXITCODE
       - name: Retain verified candidate and validation evidence
