@@ -1,4 +1,4 @@
-# KJDB Local Memory — Windows x64 preview
+# KJDB Local Memory — Windows x64 0.1.1
 
 이 폴더는 AI 앱에 연결하는 로컬 텍스트 메모리 실행 패키지입니다. KJDB 자체에는 API 키·클라우드 서버·터널이 필요하지 않으며, AI 앱은 별도로 설치·로그인해야 합니다.
 
@@ -19,4 +19,4 @@ PowerShell에서:
 
 로그 32 MiB, 기록 8,192회, 활성 기억 1,000개 한계가 있습니다. 자동 수집·의미 검색·압축·암호화·보안 삭제는 제공하지 않습니다. Windows 디렉터리 항목의 물리 전원 손실 내구성은 미검증입니다.
 
-이 패키지는 개발 미리보기입니다. 원본 사용자 DB를 시험에 쓰지 마세요. MIT 원문은 LICENSE, Python과 포함 구성요소의 기존 고지는 runtime/LICENSE.txt에서 확인합니다.
+Windows x64 로컬 텍스트 메모리 안정판입니다. 검증 범위는 docs/VALIDATION.md, 업데이트·복원은 docs/UPDATE_AND_RECOVERY.md를 확인하세요. MIT 고지는 LICENSE, Python 및 제삼자 고지는 runtime/LICENSE.txt에 있습니다.

@@ -13,7 +13,9 @@ P9_FILES = ('memory_store.py', 'memory_tools.py', 'mcp_server.py')
 LOCAL_FILES = ('kjdb_local.py', 'config_helpers.py', 'generate_codex.py', 'generate_claude_desktop.py', 'generate_claude_code.py')
 EXCLUDED = {'site-packages', '__pycache__', 'test', 'tests', 'ensurepip', 'idlelib', 'tkinter', 'turtledemo'}
 
-def package(destination, library, python_root, version='0.1.1-preview'):
+def package(destination, library, python_root, version='0.1.1-preview', release_status='preview'):
+    if release_status not in ('preview', 'stable'):
+        raise ValueError('release_status must be preview or stable')
     destination = Path(destination).resolve()
     zip_path = destination.parent / (destination.name + '.zip')
     if destination.exists() or zip_path.exists():
@@ -64,7 +66,7 @@ def package(destination, library, python_root, version='0.1.1-preview'):
         source = ROOT / 'tools/local' / name
         if source.is_file():
             copy(source, Path('guides') / name)
-    for name in ('PRIVACY.md', 'VALIDATION.md'):
+    for name in ('PRIVACY.md', 'VALIDATION.md', 'UPDATE_AND_RECOVERY.md', 'STABLE_RELEASE_PLAN.md'):
         copy(ROOT / 'docs' / name, Path('docs') / name)
     (destination / 'package.json').write_text(json.dumps({
         'name': 'kjdb-local-memory', 'version': version,
@@ -75,7 +77,7 @@ def package(destination, library, python_root, version='0.1.1-preview'):
         'supported_surfaces': ['Codex CLI', 'Claude Desktop regular chat', 'Claude Code CLI'],
         'excluded_surfaces': ['Claude Desktop Cowork/embedded Code with shared-store startup'],
         'durability': 'File flush only; Windows directory-entry power-loss durability unqualified',
-        'release_status': 'preview; see docs/VALIDATION.md for qualified scope'
+        'release_status': release_status + '; see docs/VALIDATION.md for qualified scope'
     }, indent=2) + '\n', encoding='utf-8')
     files = sorted(p for p in destination.rglob('*') if p.is_file())
     hashes = {p.relative_to(destination).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
@@ -93,5 +95,6 @@ if __name__ == '__main__':
     parser.add_argument('--library', type=Path, required=True)
     parser.add_argument('--python-root', type=Path, required=True)
     parser.add_argument('--version', default='0.1.1-preview')
+    parser.add_argument('--release-status', choices=('preview', 'stable'), default='preview')
     args = parser.parse_args()
-    package(args.destination, args.library, args.python_root, args.version)
+    package(args.destination, args.library, args.python_root, args.version, args.release_status)

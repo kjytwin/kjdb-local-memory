@@ -37,6 +37,7 @@ def verify(archive):
         assert (package / metadata['python_license']).is_file()
         assert (package / 'docs/PRIVACY.md').is_file()
         assert (package / 'docs/VALIDATION.md').is_file()
+        assert (package / 'docs/UPDATE_AND_RECOVERY.md').is_file()
         assert not any('memory.log' in name or 'site-packages' in name or '__pycache__' in name for name in actual)
         command = [str(package / 'runtime/python.exe'), '-I', '-B',
                    str(package / 'tools/local/kjdb_local.py'), '--project', 'fresh',
